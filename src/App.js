@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Navbar } from "./components/Navbar";
+import { Input } from "./components/Input";
+import { Card } from "./components/Card";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+
+      {/* <div>
+        <h1 className="text-center">
+          Te gustaria ver información interesante sobre tu actividad en Twitter?
+        </h1>
+      </div> */}
+
+      <Card className="">
+        <Input label="Usuario" placeholder="Usuario" />
+        <div class="flex items-center justify-center">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+          >
+            Buscar
+          </button>
+        </div>
+      </Card>
+    </>
   );
 }
 
