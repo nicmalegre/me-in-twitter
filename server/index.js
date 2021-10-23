@@ -14,7 +14,7 @@ app.listen(PORT, () => console.log(`server is runnig on PORT: ${PORT}`));
 
 const endpointUsers = `https://api.twitter.com/2/users/`;
 
-async function getRequest(userId) {
+const getUser = async userId => {
   const params = {
     "user.fields":
       "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
@@ -36,28 +36,17 @@ async function getRequest(userId) {
   } else {
     throw new Error("Unsuccessful request");
   }
-}
-
-const getData = async userId => {
-  try {
-    // Make request
-    const response = await getRequest(userId);
-    return response;
-    // console.dir(response, {
-    //   depth: null,
-    // });
-  } catch (e) {
-    console.log(e);
-    process.exit(-1);
-  }
 };
 
-// const userId = "14889282"; pb
 // const userId = "753883405"; me
 
-app.get("/user/:id", async (req, res) => {
-  const userId = req.params.id;
-
-  const response = await getData(userId);
-  res.json(response);
+app.get("/user/:id", async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const response = await getUser(userId);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
