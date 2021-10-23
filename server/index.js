@@ -1,15 +1,16 @@
-const PORT = 8000;
 const needle = require("needle");
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 app.use(cors());
 
-app.listen(PORT, () => console.log(`server is runnig on PORT: ${PORT}`));
+const PORT = process.env.PORT;
+const TOKEN = process.env.TOKEN;
 
-const token =
-  "AAAAAAAAAAAAAAAAAAAAAL4CUwEAAAAAijF2%2FLMfZngDTE%2Byov9gUeW7ib8%3D1PsojU5b6ZOYLHup6jy2ZUTcyWO366KrgQgnWU3TNAHnfuvsGz";
+app.listen(PORT, () => console.log(`server is runnig on PORT: ${PORT}`));
 
 // const userId = "14889282"; pb
 const userId = "753883405"; //me
@@ -25,11 +26,11 @@ async function getRequest() {
       "attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,public_metrics,organic_metrics,promoted_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld",
   };
 
-  // this is the HTTP header that adds bearer token authentication
+  // this is the HTTP header that adds bearer TOKEN authentication
   const res = await needle("get", endpointURL, params, {
     headers: {
       "User-Agent": "v2UserLookupJS",
-      authorization: `Bearer ${token}`,
+      authorization: `Bearer ${TOKEN}`,
     },
   });
 
