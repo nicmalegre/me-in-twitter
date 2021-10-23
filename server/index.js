@@ -40,6 +40,17 @@ const getUser = async username => {
 
 // const username = "753883405"; me
 
+app.get("/users/:id", async (req, res, next) => {
+  try {
+    const username = req.params.id;
+    const response = await getUser(username);
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 app.get("/user/:id", async (req, res, next) => {
   try {
     const username = req.params.id;

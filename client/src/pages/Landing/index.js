@@ -4,7 +4,7 @@ import { Card } from "../../components/Card";
 import { Input } from "../../components/Input";
 import { Navbar } from "../../components/Navbar";
 
-const BASE_USER_URL = "http://localhost:8000/user/";
+const BASE_USER_URL = "http://localhost:8000/users/";
 
 export const Landing = () => {
   const [user, setUser] = useState();
