@@ -12,12 +12,9 @@ const TOKEN = process.env.TOKEN;
 
 app.listen(PORT, () => console.log(`server is runnig on PORT: ${PORT}`));
 
-// const userId = "14889282"; pb
-const userId = "753883405"; //me
+const endpointUsers = `https://api.twitter.com/2/users/`;
 
-const endpointURL = `https://api.twitter.com/2/users/${userId}`;
-
-async function getRequest() {
+async function getRequest(userId) {
   const params = {
     "user.fields":
       "created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld",
@@ -27,7 +24,7 @@ async function getRequest() {
   };
 
   // this is the HTTP header that adds bearer TOKEN authentication
-  const res = await needle("get", endpointURL, params, {
+  const res = await needle("get", `${endpointUsers}${userId}`, params, {
     headers: {
       "User-Agent": "v2UserLookupJS",
       authorization: `Bearer ${TOKEN}`,
@@ -41,10 +38,10 @@ async function getRequest() {
   }
 }
 
-const getData = async () => {
+const getData = async userId => {
   try {
     // Make request
-    const response = await getRequest();
+    const response = await getRequest(userId);
     return response;
     // console.dir(response, {
     //   depth: null,
@@ -55,7 +52,12 @@ const getData = async () => {
   }
 };
 
-app.get("/", async (req, res) => {
-  const response = await getData();
+// const userId = "14889282"; pb
+// const userId = "753883405"; me
+
+app.get("/user/:id", async (req, res) => {
+  const userId = req.params.id;
+
+  const response = await getData(userId);
   res.json(response);
 });
