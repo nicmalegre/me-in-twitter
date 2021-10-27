@@ -96,7 +96,9 @@ export const Landing = () => {
           <p>Usuario: {user.username}</p>
           <p>Id: {user.id}</p>
           {user.location && <p>Location: {user.location}</p>}
-          <p>Sos usuario de Twitter desde el: {user.created_at}</p>
+          <p>
+            Sos usuario de Twitter desde el: {user.created_at.substring(0, 10)}
+          </p>
           <br />
           <p>Siguiendo: {user.public_metrics.following_count}</p>
           <p>Seguidores: {user.public_metrics.followers_count}</p>
