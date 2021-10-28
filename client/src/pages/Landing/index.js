@@ -3,25 +3,26 @@ import { useQuery } from "react-query";
 import { Card } from "../../components/Card";
 import { Input } from "../../components/Input";
 import { Navbar } from "../../components/Navbar";
+import { translateError } from "../../utils";
 
 const BASE_USER_URL = "http://localhost:8000/users/";
 
 export const Landing = () => {
   const [user, setUser] = useState();
   const [username, setUsername] = useState(null);
-  const [errors, setErrors] = useState(null);
+  const [error, setError] = useState(null);
 
   const onSuccess = async response => {
     const { data, errors } = response;
 
     if (errors) {
       console.log(errors);
-      setErrors(errors);
+      const errorTranslated = translateError(errors);
+      setError(errorTranslated);
     } else {
-      setErrors(null);
+      setError(null);
     }
     if (data) {
-      console.log(data);
       setUser(data); //Save all the results
     }
   };
@@ -29,7 +30,7 @@ export const Landing = () => {
   const onError = error => {
     console.log("onError");
     console.log(error);
-    setErrors(error);
+    setError(error);
   };
 
   const getUserById = async () => {
@@ -44,7 +45,6 @@ export const Landing = () => {
   }); //Use react-query for get all the pokemons
 
   const handleInputChange = e => {
-    console.log(e.target.value);
     setUsername(e.target.value);
   };
 
@@ -70,11 +70,7 @@ export const Landing = () => {
           value={username}
           onChange={handleInputChange}
         />
-        {errors &&
-          errors.length &&
-          errors.map(error => (
-            <span className="text-red-500">{error.detail}</span>
-          ))}
+        {error && <span className="text-red-500">{error}</span>}
 
         <div className="flex items-center justify-center">
           <button
