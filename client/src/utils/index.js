@@ -1,17 +1,8 @@
-const ERRORS_FROM_TWITTER_API = [
-  "User has been suspended",
-  "does not match",
-  "Could not find user with username",
-];
-
-const ERRORS_TRANSLATED = [
-  "Este usuario ha sido suspendido.",
-  "El usuario ingresado no es correcto.",
-  "No pudimos encontrar el usuario ingresado.",
-];
-
-const ERROR_DEFAULT =
-  "Ocurrió un problema. Por favor, controla el usuario e intenta nuevamente.";
+import {
+  ERRORS_FROM_TWITTER_API,
+  ERRORS_TRANSLATED,
+  ERROR_DEFAULT,
+} from "./constants";
 
 export const translateError = errors => {
   const firstError = errors[0];
