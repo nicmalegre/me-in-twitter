@@ -6,7 +6,7 @@ export const Input = ({
   onChange,
   ...props
 }) => (
-  <div className="mb-4">
+  <div className="mb-4 min-w-max">
     <label className="block text-gray-700 text-sm font-bold mb-2">
       {label}
     </label>
